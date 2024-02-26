@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToDoApp</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100vw;
+        background-color: #f0f2f5;
+      }
+
+      .container {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        width: 50%;
+        max-width: 90%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .top {
+        width: 80%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 20px;
+        column-gap: 5%;
+        row-gap: 5%;
+      }
+
+      input[type="text"] {
+        flex: 1;
+        height: 40px;
+        font-size: 16px;
+        padding: 10px;
+        border: none;
+        border-radius: 5px 0 0 5px;
+        border: 1px solid #ddd;
+      }
+
+      select {
+        height: 40px;
+        font-size: 16px;
+        padding: 0 10px;
+        border: none;
+        border-radius: 0 5px 5px 0;
+        border: 1px solid #ddd;
+        background-color: #f9f9f9;
+      }
+
+      .add {
+        background-color: #6c5ce7;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 10px 20px;
+        transition: background-color 0.3s ease;
+      }
+
+      .add:hover {
+        background-color: #4b39bd;
+      }
+
+      .task-container {
+        animation: fadeIn 0.5s forwards;
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+      }
+
+      .task {
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        animation: slideIn 0.5s forwards;
+        width: 80%;
+      }
+
+      .task .priority {
+        font-weight: bold;
+        margin-right: 10px;
+      }
+
+      .priority-easy {
+        color: green;
+      }
+      .priority-medium {
+        color: blue;
+      }
+      .priority-hard {
+        color: red;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="top">
+        <input type="text" id="taskInput" placeholder="Enter Your Task Here" />
+        <select name="priority" id="priority">
+          <option value="none">CHOOSE</option>
+          <option value="Easy">EASY</option>
+          <option value="Medium">MEDIUM</option>
+          <option value="Hard">HARD</option>
+        </select>
+        <button class="add">ADD</button>
+      </div>
+      <div class="task-container"></div>
+    </div>
+
+    <script>
+      document.querySelector(".add").addEventListener("click", function () {
+        let taskInput = document.getElementById("taskInput").value;
+        let priority = document.getElementById("priority").value;
+        if (taskInput.trim() !== "" && priority !== "none") {
+          let taskContainer = document.querySelector(".task-container");
+          let taskDiv = document.createElement("div");
+          taskDiv.classList.add("task");
+          taskDiv.innerHTML = `
+          <span class="task-text">${taskInput}</span>
+          <span class="priority priority-${priority.toLowerCase()}">${priority}</span>
+        
+        `;
+          taskContainer.appendChild(taskDiv);
+        }
+        document.getElementById("taskInput").value = "";
+        document.getElementById("priority").value = "none";
+      });
+    </script>
+  </body>
+</html>
